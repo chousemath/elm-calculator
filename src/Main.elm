@@ -33,6 +33,7 @@ init =
 type Msg
     = Ins Int
     | Square
+    | Sign
     | Reset
     | CE
     | SetCustomerName String
@@ -56,6 +57,9 @@ formatReceipt receipt =
 
 update msg model =
     case msg of
+        Sign ->
+            { model | price = -model.price }
+
         Ins num ->
             { model | price = insertNum num model.price }
 
@@ -106,6 +110,9 @@ view model =
         , div []
             [ button [ onClick Square ] [ text "sq" ]
             , button [ onClick Reset ] [ text "reset" ]
+            ]
+        , div []
+            [ button [ onClick Sign ] [ text "+/-" ]
             ]
         , div []
             [ button [ onClick CE ] [ text "CE" ]
